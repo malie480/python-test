@@ -1,0 +1,25 @@
+Matrix:
+    
+name: Dependent Workflow
+
+on:
+  push
+
+jobs:
+  test:
+    name: Test on node ${{ matrix.myvar1 }} 
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        myvar1: ['8', '10', '12']
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.myvar1 }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.myvar1 }}
+
+    - name: npm version
+      run: |
+        echo NPM Version ${{  matrix.myvar1 }}
