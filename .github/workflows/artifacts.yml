@@ -1,0 +1,27 @@
+name: Artifacts
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: mkdir -p malie-dir
+      - run: echo hello > malie-dir/world.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: malie-dir/world.txt
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+      - name: testing file
+        run: |
+          cat world.txt
+          ls      
