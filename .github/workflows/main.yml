@@ -1,0 +1,33 @@
+name: Windows Build and Run
+
+# Trigger the workflow on push or pull request to the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    steps:
+    # Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Add any setup steps here
+    - name: Setup Environment
+      run: |
+        echo "Setting up Environment"
+        # Add your configuration commands here, for example:
+        # Set up Python
+        choco install python --version 3.8
+
+    # Add the steps to build and run your application here
+    - name: Build and Run Application
+      run: |
+        echo "Building and Running Application"
+        # Replace below with your build and run commands
+        python hello.py
+
